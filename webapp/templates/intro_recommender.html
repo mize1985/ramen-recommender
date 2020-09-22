@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>デニーズメニュー</title>
+  
+<style>
+table, th, td {
+  border: 0px;
+}
+th, td {
+  padding: 5px;
+  text-align: left;    
+}
+</style>
+</head>
+
+<body>
+<h1>Next Noodle Shop ・　次の麺屋</h1>
+<table style="width:90%">
+  <tr>
+    <td>
+        <form action="/recommend">
+           <br>
+           Words or URLs, Separated by "+"
+           <br>
+           <input type="text" name="search_terms" value='豚骨醤油ラーメン+メンマ'>
+           <br>
+           <br>
+           Minimum Rating
+           <br>
+           <input type="text" name="minimum_rating" value='3.5'>
+           <br>
+           <br>
+           Latitude
+           <br>
+           <input id = 'lat' type="text" name="latitude" value='35.2'>
+           <input type='button' onclick='getLocation()' value="Locate Me">
+           <br>
+           <br>
+           Longitude
+           <br>
+           <input id = 'long' type="text" name="longitude" value='136.9'>
+           <br>
+           <br>
+           Radius (km)
+           <br>
+           <input type="text" name="radius" value='25'>
+           <br>
+           <br>
+           <input type="text" id="same" onclick="toggler()" name="same" value='Same・同'>
+           <br>
+           <br>
+           <input type="submit" value="Submit" method="get">
+      </form>
+  </td>
+    <td>plot here</td>
+  </tr>
+</table>
+<script>
+function toggler() {
+  var x = document.getElementById("same").value;
+  if (x == "Same・同"){
+  document.getElementById("same").value = 'Different・別';
+  }
+  else{
+  document.getElementById("same").value = 'Same・同';
+  }
+}
+var lat = document.getElementById("lat");
+var long = document.getElementById("long");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(insertPosition);
+  } else { 
+    lat.innerHTML = "Geolocation is not supported by this browser.";
+    long.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function insertPosition(position) {
+  lat.value = position.coords.latitude;
+  long.value = position.coords.longitude;
+}
+</script>
+</body>
+
+

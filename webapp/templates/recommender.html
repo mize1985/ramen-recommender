@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>デニーズメニュー</title>
+  
+<style>
+table, th, td {
+  border: 0px;
+}
+th, td {
+  padding: 5px;
+  text-align: left;    
+}
+</style>
+</head>
+
+<body>
+<h1>Next Noodle Shop ・　次の麺屋</h1>
+<table style="width:90%">
+  <tr>
+    <td>
+        <form action="/recommend">
+           <br>
+           Words or URLs, Separated by "+"
+           <br>
+           <input type="text" name="search_terms" value='{{x_inputs['search_terms']}}'>
+           <br>
+           <br>
+           Minimum Rating
+           <br>
+           <input type="text" name="minimum_rating" value='{{x_inputs['minimum_rating']}}'>
+           <br>
+           <br>
+           Latitude
+           <br>
+           <input id = 'lat' type="text" name="latitude" value='{{x_inputs['latitude']}}'>
+           <input type='button' onclick='getLocation()' value="Locate Me">
+           <br>
+           <br>
+           Longitude
+           <br>
+           <input id = 'long' type="text" name="longitude" value='{{x_inputs['longitude']}}'>
+           <br>
+           <br>
+           Radius (km)
+           <br>
+           <input type="text" name="radius" value='{{x_inputs['radius']}}'>
+           <br>
+           <br>
+           <input type="text" id="same" onclick="toggler()" name="same" value='{{x_inputs['same']}}'>
+           <br>
+           <br>
+           <input type="submit" value="Submit" method="get">
+      </form>
+      		
+  </td>
+    <td>
+         plot here
+    
+    
+    </td>
+  </tr>
+  <tr>
+      <td>
+  
+    <p>
+      <h3>Recommendations:</h3> 
+        <a href="{{recommended[recommended_list[0]]}}">{{ recommended_list[0] }} </a>
+        <br>  
+        <a href="{{recommended[recommended_list[1]]}}">{{ recommended_list[1] }} </a>
+        <br>  
+        <a href="{{recommended[recommended_list[2]]}}">{{ recommended_list[2] }} </a>
+        <br>  
+        <a href="{{recommended[recommended_list[3]]}}">{{ recommended_list[3] }} </a>
+        <br>  
+        <a href="{{recommended[recommended_list[4]]}}">{{ recommended_list[4] }} </a>
+    </p>
+
+      <form action = "http://127.0.0.1:5000/">
+           <input type="submit" value="Clear/Reset" method="get">
+      </form>
+      </td>
+
+  
+  </tr>
+</table>
+
+
+<script>
+function toggler() {
+  var x = document.getElementById("same").value;
+  if (x == "Same・同"){
+  document.getElementById("same").value = 'Different・別';
+  }
+  else{
+  document.getElementById("same").value = 'Same・同';
+  }
+}
+var lat = document.getElementById("lat");
+var long = document.getElementById("long");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(insertPosition);
+  } else { 
+    lat.innerHTML = "Geolocation is not supported by this browser.";
+    long.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function insertPosition(position) {
+  lat.value = position.coords.latitude;
+  long.value = position.coords.longitude;
+}
+</script>
+
+
+
+</body>
+</html>
